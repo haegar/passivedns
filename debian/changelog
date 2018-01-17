@@ -1,0 +1,5 @@
+passivedns (1.2.1+git20170319.sdinetH1) stretch; urgency=medium
+
+  * Initial release.
+
+ -- Sven-Haegar Koch <sven.koch@hoistgroup.com>  Wed, 17 Jan 2018 15:08:31 +0100
