@@ -1,15 +1,18 @@
 Source: passivedns
-Section: unknown
+Section: net
 Priority: optional
 Maintainer: Sven-Haegar Koch <sven.koch@hoistgroup.com>
-Build-Depends: debhelper (>= 10), autotools-dev
+Build-Depends: debhelper (>= 10), autotools-dev, dh-autoreconf,
+ libldns-dev (>= 1.0.0), libpcap-dev, libjansson-dev,
+ libdate-simple-perl
 Standards-Version: 4.1.2
-Homepage: <insert the upstream URL, if relevant>
-#Vcs-Git: https://anonscm.debian.org/git/collab-maint/passivedns.git
-#Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/passivedns.git
+Homepage: https://github.com/gamelinux/passivedns
 
 Package: passivedns
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Depends: adduser, libdate-simple-perl, procps, ${shlibs:Depends}, ${misc:Depends}
+Description: Passive DNS traffic sniffer
+ Sniffs traffic from an interface or reads a pcap-file and outputs
+ the DNS-server answers to a log file. PassiveDNS can cache/aggregate duplicate
+ DNS answers in-memory, limiting the amount of data in the logfile without
+ losing the essense in the DNS answer.

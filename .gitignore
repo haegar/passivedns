@@ -26,4 +26,17 @@ src/Makefile
 src/Makefile.in
 src/stamp-h1
 
+# Debian packaging addons:
 *~
+.#*
+/debian/.debhelper/
+/debian/autoreconf.after
+/debian/autoreconf.before
+/debian/debhelper-build-stamp
+/debian/files
+/debian/passivedns.debhelper.log
+/debian/passivedns.postinst.debhelper
+/debian/passivedns.postrm.debhelper
+/debian/passivedns.prerm.debhelper
+/debian/passivedns.substvars
+/debian/passivedns/

@@ -20,6 +20,7 @@ set -e
 
 case "$1" in
     configure)
+	adduser --system --group --home /var/lib/passivedns passivedns
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
