@@ -1,41 +1,69 @@
-#  OPTIONS:
 # 
-#  -i <iface>      Network device <iface> (default: eth0).
-#  -r <file>       Read pcap <file>.
-#  -l <file>       Name of the logfile (default: /var/log/passivedns.log).
-#  -L <file>       Name of NXDOMAIN logfile (default: /var/log/passivedns.log).
-#  -b 'BPF'        Berkley Packet Filter (default: 'port 53').
-#  -p <file>       Name of pid file (default: /var/run/passivedns.pid).
-#  -S <mem>        Soft memory limit in MB (default: 256).
-#  -C <sec>        Seconds to cache DNS objects in memory (default 43200).
-#  -P <sec>        Seconds between printing duplicate DNS info (default 86400).
-#  -X <flags>      Manually set DNS RR Types to care about(Default -X 46CDNPRS).
-#  -u <uid>        User ID to drop privileges to.
-#  -g <gid>        Group ID to drop privileges to.
-#  -T <dir>        Directory to chroot into.
-#  -D              Run as daemon.
-#  -V              Show version and exit.
-#  -h              This help message.
+# USAGE:
+# $ passivedns [options]
 # 
-#  FLAGS:
+# OPTIONS:
 # 
-#   4:A    6:AAAA  C:CNAME  D:DNAME  N:NAPTR  O:SOA
-#   P:PTR  R:RP    S:SRV    T:TXT    M:MX     n:NS
-#   x:NXD
-#
+# -i <iface>      Network device <iface> (default: eth0).
+# -r <file>       Read pcap <file>.
+# -H <hostname>   Choose hostname to print in record.
+# -l <file>       Logfile normal queries (default: /var/log/passivedns.log).
+# -L <file>       Logfile for SRC Error queries (default: /var/log/passivedns.log).
+# -y              Log to syslog (uses local7 syslog facility).
+# -Y              Log NXDOMAIN to syslog.
+# -d <delimiter>  Delimiter between fields in log file (default: ||).
+# -j              Use JSON as output in log file.
+# -J              Use JSON as output in NXDOMAIN log file.
+# -f <fields>     Choose which fields to print (default: -f SMcsCQTAtn).
+# -s <file>       Print stats on signal (SIGUSR1) to this file.
+# -b 'BPF'        Berkley Packet Filter (default: 'port 53').
+# -p <file>       Name of pid file (default: /var/run/passivedns.pid).
+# -S <mem>        Soft memory limit in MB (default: 256).
+# -C <sec>        Seconds to cache DNS objects in memory (default: 43200).
+# -P <sec>        Seconds between printing duplicate DNS info (default 86400).
+# -X <flags>      Manually set DNS RR Types to care about (default: -X 46CDNPRS).
+# -N              Set interface to non promisc. mode.
+# -u <uid>        User ID to drop privileges to.
+# -g <gid>        Group ID to drop privileges to.
+# -T <dir>        Directory to chroot into.
+# -D              Run as daemon.
+# -V              Show version and exit.
+# -h              This help message.
+# 
+# FIELDS:
+# 
+# H: YMD-HMS Stamp S: Timestamp(s)  M: Timestamp(ms)  c: Client IP
+# s: Server IP     C: Class         Q: Query          T: Type
+# A: Answer        t: TTL           p: Protocol       n: Count
+# h: hostname      L: QueryLength   l: AnswerLength
+# 
+# FLAGS:
+# 
+# * For Record Types:
+# 4:A      6:AAAA  C:CNAME  D:DNAME  N:NAPTR  O:SOA  L:LOC   F:SPF   I:HINFO
+# P:PTR    R:RP    S:SRV    T:TXT    M:MX     n:NS   d:DNSEC H:SSHFP
+# L also enables GPOS
+# d enables DS, DNSKEY, NSEC, NSEC3, NSEC3PARAM, RRSIG
+# 
+# * For Server Return Code (SRC) Errors:
+# f:FORMERR   s:SERVFAIL  x:NXDOMAIN  o:NOTIMPL  r:REFUSED
+# y:YXDOMAIN  e:YXRRSET   t:NXRRSET   a:NOTAUTH  z:NOTZONE
+# 
+
 ## Quick and dirty:
 INTERFACE="-i any"
-BPF="-b 'port 53 or (vlan and port 53)'"
 NOPROMISC="-N"
 LOGFILE="-l /var/log/passivedns.log"
 NXLOGFILE="-L /var/log/passivedns.log"
-LOGSYSLOG=""
-NXSYSLOG=""
+#LOGSYSLOG="-y"
+#NXSYSLOG="-Y"
+JSONFORMAT="-j"
+NXJSONFORMAT="-J"
 MAXMEM="-S 128"
-PRINT="-P 86400"
-RRTYPES="-X 46CDNOPRSTMnx"
-UID="-u passivedns"
-GID="-g passivedns"
+#PRINT="-P 86400"
+PRINT="-P 60 -C 3600"
+FIELDS="-f HcsCQTAtn"
+RRTYPES="-X 46CDNOPRSTMndfsxorta"
+USERNAME="-u passivedns"
+GROUPNAME="-g passivedns"
 #CHROOT="/usr/lib/passivedns/"
-ARGS="$INTERFACE $BPF $NOPROMISC $LOGFILE $NXLOGFILE $LOGSYSLOG $NXSYSLOG $MAXMEM $PRINT $RRTYPES"
-DAEMON_ARGS="-D $ARGS"

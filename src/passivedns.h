@@ -81,7 +81,8 @@
 #define ERROR                         1
 #define STDBUF                        1024
 
-#define BPFF "port 53"                          /* Default BPF filter */
+//#define BPFF "port 53"                          /* Default BPF filter */
+#define BPFF "port 53 or (vlan and port 53)"
 
 #if defined(__FreeBSD__) || defined(__APPLE__)
 #define s6_addr32   __u6_addr.__u6_addr32
@@ -557,10 +558,10 @@ typedef struct _globalconfig {
 #define plog(fmt, ...) do{ fprintf(stdout, (fmt), ##__VA_ARGS__); }while(0)
 #define flog(h, fmt, ...) do{ fprintf(h, fmt, ##__VA_ARGS__); }while(0)
 #define olog(fmt, ...) do{ if(!(ISSET_CONFIG_QUIET(config))) fprintf(stdout, (fmt), ##__VA_ARGS__); }while(0)
-//#define DEBUG 1
+#define DEBUG 3
 #ifdef DEBUG
 #define dlog(fmt, ...) do { fprintf(stderr, ("[%s:%d(%s)] " fmt), __FILE__, __LINE__, __PRETTY_FUNCTION__, ##__VA_ARGS__);} while(0)
-#define vlog(v, fmt, ...) do{ if(DEBUG == v) fprintf(stderr, ("[%s:%d(%s)] " fmt), __FILE__, __LINE__, __PRETTY_FUNCTION__, ##__VA_ARGS__); }while(0)
+#define vlog(v, fmt, ...) do{ if(DEBUG >= v) fprintf(stderr, ("[%s:%d(%s)] " fmt), __FILE__, __LINE__, __PRETTY_FUNCTION__, ##__VA_ARGS__); }while(0)
 #define elog(fmt, ...) fprintf(stderr, ("[%s:%d(%s)] " fmt), __FILE__, __LINE__, __PRETTY_FUNCTION__, ##__VA_ARGS__);
 #else
 #define elog(fmt, ...) fprintf(stderr, (fmt), ##__VA_ARGS__);

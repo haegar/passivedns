@@ -14,5 +14,21 @@ fi
 
 DESC="PassiveDNS"
 NAME=passivedns
-PIDFILE=/var/run/passivedns.pid
+PIDFILE=/var/run/passivedns/passivedns.pid
 DAEMON=/usr/bin/passivedns
+
+do_start_cmd() {
+	mkdir -p /var/run/passivedns
+	chown passivedns:passivedns /var/run/passivedns
+
+	export DAEMON_ARGS="-D -p ${PIDFILE} ${INTERFACE} ${NOPROMISC} ${LOGFILE} ${NXLOGFILE} ${LOGSYSLOG} ${NXSYSLOG} ${JSONFORMAT} ${NXJSONFORMAT} ${MAXMEM} ${PRINT} ${FIELDS} ${RRTYPES} ${USERNAME} ${GROUPNAME} ${CHROOT}"
+
+	start-stop-daemon --start --quiet ${PIDFILE:+--pidfile ${PIDFILE}} \
+		$START_ARGS \
+		--startas $DAEMON --name $NAME --exec $DAEMON --test > /dev/null \
+		|| return 1
+	start-stop-daemon --start --quiet ${PIDFILE:+--pidfile ${PIDFILE}} \
+		$START_ARGS \
+		--startas $DAEMON --name $NAME --exec $DAEMON -- $DAEMON_ARGS \
+		|| return 2
+}
