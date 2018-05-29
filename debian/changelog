@@ -1,3 +1,9 @@
+passivedns (1.2.1+git20180201.sdinetH6) stretch; urgency=medium
+
+  * New upstream git snapshot 11188178e58c66bc8a63ba338745df3b6aca6305
+
+ -- Sven-Haegar Koch <sven.koch@hoistgroup.com>  Tue, 29 May 2018 18:01:44 +0200
+
 passivedns (1.2.1+git20170319.sdinetH5) stretch; urgency=medium
 
   * Initial release.
