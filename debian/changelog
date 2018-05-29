@@ -1,3 +1,9 @@
+passivedns (1.2.1+git20180201.sdinetH9) stretch; urgency=medium
+
+  * Implement missing YMDHMS field generation for JSON output.
+
+ -- Sven-Haegar Koch <sven.koch@hoistgroup.com>  Tue, 29 May 2018 18:21:27 +0200
+
 passivedns (1.2.1+git20180201.sdinetH6) stretch; urgency=medium
 
   * New upstream git snapshot 11188178e58c66bc8a63ba338745df3b6aca6305
