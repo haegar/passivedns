@@ -1,3 +1,11 @@
+passivedns (1.2.1+git20180201.sdinetH10) stretch; urgency=medium
+
+  * Make /etc/init.d/passivedns work correctly with spaces inside the
+    /etc/default/passivedns parameters - needed to correctly work with
+    custom BPF filter rules.
+
+ -- Sven-Haegar Koch <sven.koch@hoistgroup.com>  Wed, 30 May 2018 15:41:59 +0200
+
 passivedns (1.2.1+git20180201.sdinetH9) stretch; urgency=medium
 
   * Implement missing YMDHMS field generation for JSON output.

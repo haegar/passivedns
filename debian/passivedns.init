@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # kFreeBSD do not accept scripts as interpreters, using #!/bin/sh and sourcing.
 if [ true != "$INIT_D_SCRIPT_SOURCED" ] ; then
     set "$0" "$@"; INIT_D_SCRIPT_SOURCED=true . /lib/init/init-d-script
@@ -18,10 +18,84 @@ PIDFILE=/var/run/passivedns/passivedns.pid
 DAEMON=/usr/bin/passivedns
 
 do_start_cmd() {
+	set -x
+	local params
+
 	mkdir -p /var/run/passivedns
 	chown passivedns:passivedns /var/run/passivedns
 
-	export DAEMON_ARGS="-D -p ${PIDFILE} ${INTERFACE} ${NOPROMISC} ${LOGFILE} ${NXLOGFILE} ${LOGSYSLOG} ${NXSYSLOG} ${JSONFORMAT} ${NXJSONFORMAT} ${MAXMEM} ${PRINT} ${FIELDS} ${RRTYPES} ${USERNAME} ${GROUPNAME} ${CHROOT}"
+	params=()
+	params+=("-D")
+	params+=("-p")
+	params+=("$PIDFILE")
+	params+=("-u")
+	params+=("passivedns")
+	params+=("-g")
+	params+=("passivedns")
+
+	if [ -n "$INTERFACE" ] ; then
+		params+=("-i")
+		params+=("$INTERFACE")
+	fi
+	if [ -n "$BPFF" ] ; then
+		params+=("-b")
+		params+=("$BPFF")
+	fi
+	if [ "$NOPROMISC" = "yes" ] ; then
+		params+=("-N")
+	fi
+	if [ -n "$LOGFILE" ] ; then
+		params+=("-l")
+		params+=("$LOGFILE")
+	fi
+	if [ -n "$NXLOGFILE" ] ; then
+		params+=("-L")
+		params+=("$NXLOGFILE")
+	fi
+	if [ -n "$STATSFILE" ] ; then
+		params+=("-s")
+		params+=("$STATSFILE")
+	fi
+	if [ "$LOGSYSLOG" = "yes" ] ; then
+		params+=("-y")
+	fi
+	if [ "$NXLOGSYSLOG" = "yes" ] ; then
+		params+=("-Y")
+	fi
+	if [ "$JSONFORMAT" = "yes" ] ; then
+		params+=("-j")
+	fi
+	if [ "$NXJSONFORMAT" = "yes" ] ; then
+		params+=("-J")
+	fi
+	if [ -n "$CSVDELIMITER" ] ; then
+		params+=("-d")
+		params+=("$CSVDELIMITER")
+	fi
+	if [ -n "$MAXMEM" ] ; then
+		params+=("-S")
+		params+=("$MAXMEM")
+	fi
+	if [ -n "$PRINTINTERVAL" ] ; then
+		params+=("-P")
+		params+=("$PRINTINTERVAL")
+	fi
+	if [ -n "$CACHETIME" ] ; then
+		params+=("-C")
+		params+=("$CACHETIME")
+	fi
+	if [ -n "$FIELDS" ] ; then
+		params+=("-f")
+		params+=("$FIELDS")
+	fi
+	if [ -n "$RRTYPES" ] ; then
+		params+=("-X")
+		params+=("$RRTYPES")
+	fi
+	if [ -n "$CHROOT" ] ; then
+		params+=("-T")
+		params+=("$CHROOT")
+	fi
 
 	start-stop-daemon --start --quiet ${PIDFILE:+--pidfile ${PIDFILE}} \
 		$START_ARGS \
@@ -29,6 +103,9 @@ do_start_cmd() {
 		|| return 1
 	start-stop-daemon --start --quiet ${PIDFILE:+--pidfile ${PIDFILE}} \
 		$START_ARGS \
-		--startas $DAEMON --name $NAME --exec $DAEMON -- $DAEMON_ARGS \
+		--startas $DAEMON --name $NAME --exec $DAEMON -- \
+		"${params[@]}" \
 		|| return 2
+
+	set +x
 }
