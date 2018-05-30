@@ -10,7 +10,7 @@ Homepage: https://github.com/gamelinux/passivedns
 
 Package: passivedns
 Architecture: any
-Depends: adduser, ${shlibs:Depends}, ${misc:Depends}
+Depends: adduser, procps, ${shlibs:Depends}, ${misc:Depends}
 Description: Passive DNS traffic sniffer
  Sniffs traffic from an interface or reads a pcap-file and outputs
  the DNS-server answers to a log file. PassiveDNS can cache/aggregate duplicate

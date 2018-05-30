@@ -3,7 +3,7 @@ passivedns (1.2.1+git20180201.sdinetH11) stretch; urgency=medium
   * Make /etc/init.d/passivedns work correctly with spaces inside the
     /etc/default/passivedns parameters - needed to correctly work with
     custom BPF filter rules.
-  * Do not depend on libdate-simple-perl or procps packages.
+  * Do not depend on libdate-simple-perl package.
 
  -- Sven-Haegar Koch <sven.koch@hoistgroup.com>  Wed, 30 May 2018 16:03:36 +0200
 
