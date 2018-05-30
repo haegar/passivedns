@@ -5,8 +5,11 @@ passivedns (1.2.1+git20180201.sdinetH11) stretch; urgency=medium
     custom BPF filter rules.
   * Do not depend on libdate-simple-perl package.
   * Fixed /etc/logrotate.d/passivedns
+  * /etc/init.d/passivedns: Create log- and statsfiles if they do not
+    exist, and chown them to passivedns so that the daemon is able
+    to write into them.
 
- -- Sven-Haegar Koch <sven.koch@hoistgroup.com>  Wed, 30 May 2018 16:03:36 +0200
+ -- Sven-Haegar Koch <sven.koch@hoistgroup.com>  Wed, 30 May 2018 16:10:49 +0200
 
 passivedns (1.2.1+git20180201.sdinetH9) stretch; urgency=medium
 

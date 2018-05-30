@@ -47,14 +47,23 @@ do_start_cmd() {
 	if [ -n "$LOGFILE" ] ; then
 		params+=("-l")
 		params+=("$LOGFILE")
+
+		touch "$LOGFILE"
+		chown passivedns:passivedns "$LOGFILE"
 	fi
 	if [ -n "$NXLOGFILE" ] ; then
 		params+=("-L")
 		params+=("$NXLOGFILE")
+
+		touch "$NXLOGFILE"
+		chown passivedns:passivedns "$NXLOGFILE"
 	fi
 	if [ -n "$STATSFILE" ] ; then
 		params+=("-s")
 		params+=("$STATSFILE")
+
+		touch "$STATSFILE"
+		chown passivedns:passivedns "$STATSFILE"
 	fi
 	if [ "$LOGSYSLOG" = "yes" ] ; then
 		params+=("-y")
