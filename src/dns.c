@@ -876,7 +876,7 @@ void print_passet(pdns_record *l, pdns_asset *p, ldns_rr *rr,
         if (config.fieldsf & FIELD_TIMESTAMP_YMDHMS) {
             struct tm *tmpTime;
             char timestr[200];
-            tmpTime = localtime(&l->last_seen.tv_sec);
+            tmpTime = gmtime(&l->last_seen.tv_sec);
             strftime(timestr, sizeof(timestr), "%Y-%m-%d %H:%M:%S", tmpTime);
             json_timestamp_ymdhms = json_string(timestr);
             json_object_set(jdata, JSON_TIMESTAMP, json_timestamp_ymdhms);
@@ -1023,7 +1023,7 @@ void print_passet(pdns_record *l, pdns_asset *p, ldns_rr *rr,
         if ((config.fieldsf & FIELD_TIMESTAMP_YMDHMS)) {
             struct tm *tmpTime;
             char timestr[200];
-            tmpTime = localtime(&l->last_seen.tv_sec);
+            tmpTime = gmtime(&l->last_seen.tv_sec);
             strftime(timestr, sizeof(timestr), "%Y-%m-%d %H:%M:%S", tmpTime);
             if (is_err_record)
                 offset += snprintf(output, sizeof(buffer) - offset, "%s.%06lu",

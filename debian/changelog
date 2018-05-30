@@ -1,3 +1,9 @@
+passivedns (1.2.1+git20180201.sdinetH13) stretch; urgency=medium
+
+  * Put GMT timestamps into logfiles, not localtime.
+
+ -- Sven-Haegar Koch <sven.koch@hoistgroup.com>  Wed, 30 May 2018 17:56:53 +0200
+
 passivedns (1.2.1+git20180201.sdinetH12) stretch; urgency=medium
 
   * Make logfiles by default only readable by user passivedns, group adm.
