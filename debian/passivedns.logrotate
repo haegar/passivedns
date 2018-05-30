@@ -7,7 +7,7 @@
     compress
     delaycompress
     postrotate
-        /bin/kill -HUP `pgrep passivedns 2>/dev/null` 2>/dev/null || true
+        /usr/bin/pkill -HUP passivedns 2>/dev/null || true
     endscript
-    su root syslog
+    su root adm
 }
