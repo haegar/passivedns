@@ -49,21 +49,24 @@ do_start_cmd() {
 		params+=("$LOGFILE")
 
 		touch "$LOGFILE"
-		chown passivedns:passivedns "$LOGFILE"
+		chown passivedns:adm "$LOGFILE"
+		chmod 640 "$LOGFILE"
 	fi
 	if [ -n "$NXLOGFILE" ] ; then
 		params+=("-L")
 		params+=("$NXLOGFILE")
 
 		touch "$NXLOGFILE"
-		chown passivedns:passivedns "$NXLOGFILE"
+		chown passivedns:adm "$NXLOGFILE"
+		chmod 640 "$NXLOGFILE"
 	fi
 	if [ -n "$STATSFILE" ] ; then
 		params+=("-s")
 		params+=("$STATSFILE")
 
 		touch "$STATSFILE"
-		chown passivedns:passivedns "$STATSFILE"
+		chown passivedns:adm "$STATSFILE"
+		chmod 644 "$STATSFILE"
 	fi
 	if [ "$LOGSYSLOG" = "yes" ] ; then
 		params+=("-y")

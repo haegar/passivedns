@@ -6,6 +6,7 @@
     notifempty
     compress
     delaycompress
+    create 0640 passivedns adm
     postrotate
         /usr/bin/pkill -HUP passivedns 2>/dev/null || true
     endscript

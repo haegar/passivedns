@@ -1,3 +1,11 @@
+passivedns (1.2.1+git20180201.sdinetH12) stretch; urgency=medium
+
+  * Make logfiles by default only readable by user passivedns, group adm.
+  * logrotate: create empty logfile with correct permissions after
+    rotate, so that the running daemon is still able to write into it.
+
+ -- Sven-Haegar Koch <sven.koch@hoistgroup.com>  Wed, 30 May 2018 17:02:41 +0200
+
 passivedns (1.2.1+git20180201.sdinetH11) stretch; urgency=medium
 
   * Make /etc/init.d/passivedns work correctly with spaces inside the
