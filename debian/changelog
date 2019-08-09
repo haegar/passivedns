@@ -1,3 +1,10 @@
+passivedns (1.2.1+git20181006.sdinetH14) stretch; urgency=medium
+
+  * Disabled debugging "set -x" in /etc/init.d/passivedns
+  * New upstream git snapshot.
+
+ -- Sven-Haegar Koch <sven.koch@hoistgroup.com>  Sat, 10 Aug 2019 01:53:50 +0200
+
 passivedns (1.2.1+git20180201.sdinetH13) stretch; urgency=medium
 
   * Put GMT timestamps into logfiles, not localtime.

@@ -18,7 +18,7 @@ PIDFILE=/var/run/passivedns/passivedns.pid
 DAEMON=/usr/bin/passivedns
 
 do_start_cmd() {
-	set -x
+	#set -x
 	local params
 
 	mkdir -p /var/run/passivedns
@@ -119,5 +119,5 @@ do_start_cmd() {
 		"${params[@]}" \
 		|| return 2
 
-	set +x
+	#set +x
 }
