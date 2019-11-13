@@ -1,3 +1,9 @@
+passivedns (1.2.1+git20181006.sdinetI15) buster; urgency=medium
+
+  * Debian Buster rebuild
+
+ -- Sven-Haegar Koch <sven.koch@hoistgroup.com>  Wed, 13 Nov 2019 18:11:50 +0100
+
 passivedns (1.2.1+git20181006.sdinetH14) stretch; urgency=medium
 
   * Disabled debugging "set -x" in /etc/init.d/passivedns
